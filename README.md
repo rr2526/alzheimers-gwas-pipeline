@@ -32,11 +32,11 @@ What are the leading risk loci for Alzheimer's disease other than those associat
 
 **Step 4 - Clumping:** LD clumping on PLINK grouped correlated SNPs around lead association signals. Conventional fine-mapping parameters were used: a standard genome-wide significance threshold of 5x10e-8, a secondary threshold of 0.01, a 500 kb window size, and an r^2 value of 0.1. This yielded 72 loci, of which 55 fell on Chromosome 19, where the APOE locus is. It raised the central question: is APOE's extensive LD distorting the locus count? What happens if it's removed?
 
-**Step 5 - No-APOE Analysis:** To isolate non-APOE signal, variants on Chromosome 19 between 44,400,000 and 46,400,000 bp (a wider window around the APOE gene to capture its extended LD) were excised. This removed 8,280 variants, the minimum p-value shifted from 0 (underflow at APOE) to 4.0*10^-28, and additional peaks were observed (notably on Chromosomes 2 and 11). Rerunning LDSC gave a mean χ² value of 1.105, a λ_GC value of 1.09, and an intercept of 1.025 (with a standard error of 0.007), all of which point to polygenicity. Liability-scale heritability decreased slightly when compared to the full data; while APOE does contribute to Alzheimer's genetic risk, much of the heritability can be attributed to loci elsewhere. Re-clumping with the same parameters yielded 19 loci, of which only 2 were on Chromosome 19, and 5 were on Chromosome 11.
+**Step 5 - No-APOE Analysis:** To isolate non-APOE signal, variants on Chromosome 19 between 44,400,000 and 46,400,000 bp (a wider window around the APOE gene to capture its extended LD) were excised. This removed 8,280 variants, the minimum p-value shifted from 0 (underflow at APOE) to 4.0x10e-28, and additional peaks were observed (notably on Chromosomes 2 and 11). Rerunning LDSC gave a mean χ² value of 1.105, a λ_GC value of 1.09, and an intercept of 1.025 (with a standard error of 0.007), all of which point to polygenicity. Liability-scale heritability decreased slightly when compared to the full data; while APOE does contribute to Alzheimer's genetic risk, much of the heritability can be attributed to loci elsewhere. Re-clumping with the same parameters yielded 19 loci, of which only 2 were on Chromosome 19, and 5 were on Chromosome 11.
 
 **Step 6 - Functional Annotation, Pass 1:** Loci were annotated to their nearest gene using bedtools closest against UCSD RefSeq gene coordinates (hg19). The no-APOE lead-SNP BED file (-a) was annotated against the gene BED file (-b), returning the nearest gene and its distance per lead SNP.
 
-**Step 7 - Functional Annotation, Pass 2:** Proximity by itself can be misleading since loci may regulate distant genes. In this step, loci were additionally annotated with brain eQTL evidence via the GTEx API, returning the genes who expression each SNP is significantly associated with across brain tissue.
+**Step 7 - Functional Annotation, Pass 2:** Proximity by itself can be misleading since loci may regulate distant genes. In this step, loci were additionally annotated with brain eQTL evidence via the GTEx API. Genes whose expression is significantly associated with SNPs across the brain tissue were returned. 
 
 ### Findings 
 Initial LD clumping found 72 independent risk loci. Of these, 55 fell on Chromosome 19, and the overwhelming majority within the APOE region. After excising APOE and re-clumping, 19 loci remained, and only 2 of them on Chromosome 19.
@@ -66,7 +66,7 @@ Pass 2 then queried GTEx for brain eQTLs to ask a sharper question — does each
 | rs12416487  | ECHDC3                | NaN                    | NaN                                   | 63324             |
 | rs3851179   | EED                   | ENSG00000279742        | Brain_Cortex                          | 86786             |
 
-Excising APOE led to consistent, interpretable changes in the LDSC statistics. The prevalence-independent metrics were unchanged between prevalence assumptions:
+Excising APOE led to consistent, interpretable changes in the LDSC statistics. The prevalence-independent metrics were unchanged between prevalence values:
 
 | Metric    | Full (with APOE)   | No-APOE            |
 |-----------|--------------------|--------------------|
@@ -84,7 +84,7 @@ Liability-scale heritability, which does depend on assumed population prevalence
 | 0.15                  | 0.0945 (SE 0.0151)  | 0.0852 (SE 0.0131) |
 | 0.20                  | 0.1032 (SE 0.0165)  | 0.093 (SE 0.0143)  |
 
-Both models the intercept was near 1 (1.0302 full; 1.0253 no-APOE), indicating that inflation is driven predominantly by polygenic signal rather than confounding. Excluding the APOE locus produced a modest decrease in liability-scale heritability across all prevalence values — so while APOE contributes substantially to Alzheimer's disease risk, a large proportion of common-variant heritability is attributable to loci elsewhere in the genome.
+In both models the intercept was near 1 (1.0302 full; 1.0253 no-APOE), indicating that inflation is driven predominantly by polygenic signal rather than confounding. Excluding the APOE locus produced a modest decrease in liability-scale heritability across all prevalence values — so while APOE contributes substantially to Alzheimer's disease risk, a large proportion of common-variant heritability is attributable to loci elsewhere in the genome.
 
 ### Graphs
 **Manhattan and QQ plots on the full data**
@@ -96,16 +96,15 @@ Both models the intercept was near 1 (1.0302 full; 1.0253 no-APOE), indicating t
 ### Limitations
 - The summary statistics from Kunkle et al. are drawn from individuals of European descent, so the results may not transfer well to other populations.
 - This project focused only on single-base substitutions (SNPs), excluding indels and variants without rsIDs, as these could not be reliably matched to the LD reference panel. Some genuine signals reside in the excluded variants. 
-- GTEx brain eQTLs are derived from bulk tissue. Variants acting specifically within a minor cell population like microglia may show no detectable bulk-tissue eQTL. Loci lacking eQTLs ay still have a regulatory effect. 
-- Liability-scale heritability depends on an assumed population prevalence; Alzheimer's has no cleanly defined value (most reported figures apply to specific age groups). This was handled by estimating heritability across a range of plausible prevalence values rather than committing to a single point estimate. 
+- GTEx brain eQTLs are derived from bulk tissue. Variants acting specifically within a minor cell population like microglia may show no detectable bulk-tissue eQTL. Loci lacking eQTLs may still have a regulatory effect. 
+- Liability-scale heritability depends on an assumed population prevalence; Alzheimer's has no cleanly defined value (most reported figures apply to specific age groups). This was handled by estimating heritability across a range of plausible prevalence values rather than committing to a single number. 
 
 ### Repository Structure
     ├── README.md
     ├── requirements.txt
     ├── ad_gwas_analysis.ipynb
     ├── results/
-    │   ├── figures/                    # Manhattan/QQ, etc.
-    │   └── tables/                     # clumped loci, eQTL results (small, committed)
+    │   └── figures/                    
     └── data/                           # gitignored
         ├── raw/
         └── processed/
