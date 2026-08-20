@@ -20,7 +20,7 @@ What are the leading risk loci for Alzheimer's disease other than those associat
 |----------|--------------|----------------------------------------------------|------------------------------------------------------------------------------------------------------|
 | PLINK    | 1.9.0-b.7.11 | LD clumping                                        | [Chang et al. (2015)](https://doi.org/10.1186/s13742-015-0047-8)                                     |
 | LDSC     | 1.0.1        | Heritability and confounding (LD Score Regression) | [Bulik-Sullivan et al. (2015)](https://doi.org/10.1038/ng.3211)                                      |
-| bedtools | 2.31.1       | Nearest-gene annotation                            | [Quinlan and Hall (2010)](https://doi.org/10.1093/bioinformatics/btq033)                             |
+| BEDtools | 2.31.1       | Nearest-gene annotation                            | [Quinlan and Hall (2010)](https://doi.org/10.1093/bioinformatics/btq033)                             |
 | GTEx API | v2           | Brain eQTL lookup                                  | [Londsdale et al. (2013)](https://doi.org/10.1093/nar/gkaf1250), Portal Link: https://gtexportal.org |
 
 ### Method
