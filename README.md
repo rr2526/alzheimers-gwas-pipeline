@@ -12,6 +12,7 @@ What are the leading risk loci for Alzheimer's disease other than those associat
 | LDSC Reference Panel    | eur_w_ld_chr, w_hm3.snplist                            | hg19          | LD scores and HapMap3 SNP list                                               | [Bulik-Sullivan et al. (2015)](https://doi.org/10.1038/ng.3211)                                      |
 | Gene Annotation         | UCSC RefSeq (refGene)                                  | hg19          | Used for nearest-gene mapping                                                | [Casper et al. (2025)](https://doi.org/10.1093/nar/gkaf1250)                                         |
 | Regulatory Annotation   | GTEx brain eQTLs (via the GTEx Portal API)             | N/A           | 13 brain tissues                                                             | [Londsdale et al. (2013)](https://doi.org/10.1093/nar/gkaf1250), Portal Link: https://gtexportal.org |
+
 **Note:** Raw data is not committed (see .gitignore); the table above is sufficient to obtain every input. 
 
 ### Software
