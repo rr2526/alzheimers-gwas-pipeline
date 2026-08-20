@@ -1,0 +1,16 @@
+# environments
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+
+# raw & large data
+data/raw/
+ldsc/
+
+# generated outputs
+data/processed/
+*.clumped
+*.log
+
+.idea/
