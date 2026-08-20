@@ -116,7 +116,7 @@ In both models the intercept was near 1 (1.0302 full; 1.0253 no-APOE), indicatin
 
     # 2. Command-line tools (not pip-installable)
     #    - PLINK 1.9         https://www.cog-genomics.org/plink/
-    #    - bedtools          (brew install bedtools)
+    #    - BEDtools          (brew install bedtools)
     #    - LDSC              https://github.com/bulik/ldsc  (in its own Python 2.7 environment)
 
     # 3. Obtain the data listed in the Data section into data/raw/
